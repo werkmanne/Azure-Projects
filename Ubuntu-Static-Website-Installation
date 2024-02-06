@@ -1,0 +1,28 @@
+#!/bin/bash
+# Update package lists
+sudo apt-get update -y
+
+# Install Apache2 (Ubuntu's equivalent of httpd)
+sudo apt-get install -y apache2
+
+# Install unzip utility in case it's not already installed
+sudo apt-get install -y unzip
+
+# Change directory to the web root
+cd /var/www/html
+
+# Download the website archive from GitHub
+wget https://github.com/werkmanne/ovo-bicycle-website/archive/refs/heads/main.zip
+
+# Unzip the downloaded file
+unzip main.zip
+
+# Copy the website content to the web root
+cp -r ovo-bicycle-website-main/* /var/www/html/
+
+# Clean up the downloaded and unpacked files
+rm -rf ovo-bicycle-website-main main.zip
+
+# Enable and start Apache2 service
+sudo systemctl enable apache2 
+sudo systemctl start apache2
